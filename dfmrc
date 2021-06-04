@@ -1,0 +1,11 @@
+# dfm sources
+# copy this file to ~/.dfmrc
+
+#	sets the collection directory where files will be collected to
+targetdir=~/dotfiles/
+
+#	sets all files/folders in ~/.config that should be collected
+configloc=(neofetch nvim kitty)
+
+# set all files/folders in ~/ that should be collected
+homeloc=(.zshrc .vimrc)
