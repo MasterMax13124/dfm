@@ -1,8 +1,8 @@
-#		   _ ___       
-#		 _| |  _|_____ 
-#		| . |  _|     |
-#		|___|_| |_|_|_|
-#   dotfile manager
+#     _ ___       
+#   _| |  _|_____ 
+#  | . |  _|     |
+#  |___|_| |_|_|_|
+#  dotfile manager
 
 #!/bin/sh
 source ~/.dfmrc
@@ -15,7 +15,7 @@ if [[ $1 == "c" || $1 == "collect" ]]; then
 
 	for g in "${homeloc[@]}"; do
 		echo Copying $g from home
-		cp -r ~/.config/$g $targetdir
+		cp -r ~/$g $targetdir
 	done
 
 elif [[ $1 == "d" || $1 == "distribute" ]]; then
