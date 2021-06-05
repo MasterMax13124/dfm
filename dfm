@@ -1,10 +1,10 @@
+#!/bin/sh
 #     _ ___       
 #   _| |  _|_____ 
 #  | . |  _|     |
 #  |___|_| |_|_|_|
 #  dotfile manager
 
-#!/bin/sh
 sources=~/.dfmrc
 
 source $sources
