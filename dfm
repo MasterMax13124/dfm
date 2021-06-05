@@ -9,6 +9,21 @@ sources=~/.dfmrc
 
 . $sources
 
+prompt(){
+  while true; do
+    read -rp "File already exists, do you want to overwrite it? (y/n): " confirm
+    confirm=$(echo "$confirm" | tr '[:upper:]' '[:lower:]')
+
+    if [ "$confirm" = 'y' ]; then
+      return 0
+    elif [ "$confirm" = 'n' ]; then
+      return 1
+    else
+      printf "Choose either yes or no\n"
+    fi
+  done
+}
+
 if [[ $1 == "c" || $1 == "collect" ]]; then
 	printf "Destination: $targetdir\n"
 	for f in "${configloc[@]}"; do
@@ -25,11 +40,27 @@ elif [[ $1 == "d" || $1 == "distribute" ]]; then
 	printf "Source: $targetdir\n"
 	for f in "${configloc[@]}"; do
 		printf "Copying $f to .config\n"
+		if [ -e ~/.config/$f ]; then
+			if prompt; then
+				printf "File was overwritten\n\n"
+			else
+				printf "File was not overwritten\n\n"
+				continue
+			fi
+		fi
 		cp -r $targetdir/$f ~/.config/
 	done
 
 	for g in "${homeloc[@]}"; do
 		printf "Copying $g to home\n"
+		if [ -e ~/.config/$f ]; then
+			if prompt; then
+				printf "File was overwritten\n\n"
+			else
+				printf "File was not overwritten\n\n"
+				continue
+			fi
+		fi
 		cp -r $targetdir/$g ~/
 	done
 
