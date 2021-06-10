@@ -27,14 +27,14 @@ prompt(){
 
 if [ "$1" = "c" ] || [ "$1" = "collect" ]; then
 	printf "Destination: $targetdir\n"
-	for f in "${configloc[@]}"; do
+	echo "$configloc" | tr ' ' '\n' | while read -r f; do
 		printf "Copying $f from .config\n"
-		cp -r "$HOME/.config/$f" "$targetdir"
+		cp -r "$HOME/.config/$f" "$targetdir/"
 	done
 
-	for g in "${homeloc[@]}"; do
+	echo "$configloc" | tr ' ' '\n' | while read -r f; do
 		printf "Copying $g from home\n"
-		cp -r "$HOME/$g" "$targetdir"
+		cp -r "$HOME/$g" "$targetdir/"
 	done
 
 elif [ "$1" = "d" ] || [ "$1" = "distribute" ]; then
