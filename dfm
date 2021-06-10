@@ -53,7 +53,7 @@ elif [[ $1 == "d" || $1 == "distribute" ]]; then
 
 	for g in "${homeloc[@]}"; do
 		printf "Copying $g to home\n"
-		if [ -e ~/.config/$f ]; then
+		if [ -e ~/$g ]; then
 			if prompt; then
 				printf "File was overwritten\n\n"
 			else
@@ -68,6 +68,7 @@ elif [[ $1 == "s" || $1 == "source" ]]; then
 	$EDITOR $sources
 
 elif [[ $1 == "i" || $1 == "info" ]]; then
+	printf "Source directory: ${sources}\n"
 	printf "Selected files/folders in .config:\n${configloc[*]}\n\n"
 	printf "Selected files/folders in home:\n${homeloc[*]}\n"
 
