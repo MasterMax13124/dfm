@@ -1,12 +1,12 @@
-# dfm sources example
-# copy this file to ~/.dfmrc, then edit the values
+#	dfm sources example
+#	copy this file to ~/.dfmrc, then edit the values
 
-# sets the collection directory where files will be collected to
-# important! make sure to leave a forward slash as the last character in the line below
+#	sets the collection directory where files will be collected to
+#	important! make sure to leave a forward slash as the last character in the line below
 targetdir=~/dotfiles/
 
 #	sets all files/folders in ~/.config that should be collected
-configloc=(neofetch nvim kitty)
+configloc="somedir somefile"
 
-# set all files/folders in ~/ that should be collected
-homeloc=(.zshrc .vimrc)
+#	set all files/folders in ~/ that should be collected
+homeloc="somedir somefile"
