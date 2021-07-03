@@ -15,20 +15,19 @@ sources=~/.dfmrc
 . $sources
 
 prompt(){
-	printf "File already exists, do you want to overwrite it? (y/n): "
-  read -r confirm
-  confirm=$(echo "$confirm" | tr '[:upper:]' '[:lower:]')
+	printf "overwrite (y/N): "
+	read -r confirm
+	confirm=$(echo "$confirm" | tr '[:upper:]' '[:lower:]')
 
-  if [ "$confirm" = 'y' ] || "$confirm" = 'yes' ]; then
-    return 0
-	else
+	if [ "$confirm" = 'y' ]; then
+		return 0
+	elif [ "$confirm" = 'n' ]; then
 		return 1
-  fi
+	fi
 }
 
 if [ "$1" = "c" ] || [ "$1" = "collect" ]; then
 	printf "Destination: $targetdir\n"
-
 	echo "$configloc" | tr ' ' '\n' | while read -r f; do
 		printf "Copying $f from .config\n"
 		cp -r "$HOME/.config/$f" "$targetdir/"
