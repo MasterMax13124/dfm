@@ -19,21 +19,22 @@ prompt(){
 	read -r confirm
 	confirm=$(echo "$confirm" | tr '[:upper:]' '[:lower:]')
 
-	if [ "$confirm" = 'y' ]; then
+	if [ "$confirm" = 'y' ] || [ "$confirm" = 'yes' ]; then
 		return 0
-	elif [ "$confirm" = 'n' ]; then
+	else
 		return 1
 	fi
 }
 
 if [ "$1" = "c" ] || [ "$1" = "collect" ]; then
 	printf "Destination: $targetdir\n"
-	echo "$configloc" | tr ' ' '\n' | while read -r f; do
+
+	for f in $configloc; do
 		printf "Copying $f from .config\n"
 		cp -r "$HOME/.config/$f" "$targetdir/"
 	done
 
-	echo "$homeloc" | tr ' ' '\n' | while read -r g; do
+	for g in $homeloc; do
 		printf "Copying $g from home\n"
 		cp -r "$HOME/$g" "$targetdir/"
 	done
@@ -41,30 +42,28 @@ if [ "$1" = "c" ] || [ "$1" = "collect" ]; then
 elif [ "$1" = "d" ] || [ "$1" = "distribute" ]; then
 	printf "Source: $targetdir\n"
 
-	echo "$configloc" | tr ' ' '\n' | while read -r f; do
+	for f in $configloc; do
 		printf "Copying $f to .config\n"
 		if [ -e "$HOME/.config/$f" ]; then
-			if true; then
+			if prompt; then
+				cp -r "$targetdir/$f" "$HOME/.config/"
 				printf "File was overwritten\n\n"
 			else
 				printf "File was not overwritten\n\n"
-				continue
 			fi
 		fi
-		cp -r "$targetdir/$f" "$HOME/.config/"
 	done
 
-	echo "$homeloc" | tr ' ' '\n' | while read -r g; do
+	for g in $homeloc; do
 		printf "Copying $g to home\n"
 		if [ -e "$HOME/$g" ]; then
-			if true; then
+			if prompt; then
+				cp -r "$targetdir/$g" "$HOME/"
 				printf "File was overwritten\n\n"
 			else
 				printf "File was not overwritten\n\n"
-				continue
 			fi
 		fi
-		cp -r "$targetdir/$g" "$HOME/"
 	done
 
 elif [ "$1" = "s" ] || [ "$1" = "source" ]; then
