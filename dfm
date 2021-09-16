@@ -7,7 +7,7 @@
 
 # TO-DO:
 # integrate git commands
-# use case instead of the weird double test statements
+# use case instead of the weird double test statements, maybe(?)
 # add man page
 
 sources=~/.dfmrc
@@ -70,9 +70,9 @@ elif [ "$1" = "s" ] || [ "$1" = "source" ]; then
 	$EDITOR $sources
 
 elif [ "$1" = "i" ] || [ "$1" = "info" ]; then
-	printf "Source directory: ${sources}\n"
-	printf "Selected files/folders in .config:\n$configloc\n\n"
-	printf "Selected files/folders in home:\n$homeloc\n"
+	printf "Target directory: $targetdir\n\n"
+	printf "Selected files/folders in .config:\n$(echo $configloc | sed 's/ /, /g')\n\n"
+	printf "Selected files/folders in home:\n$(echo $homeloc | sed 's/ /, /g')\n"
 
 elif [ -z "$1" ]; then
 	printf "Usage:\n c : collect dotfiles\n d : distribute dotfiles\n s : open configuration file\n i : print info about sources\n"
